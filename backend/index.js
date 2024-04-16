@@ -12,7 +12,7 @@ require("dotenv").config();
 const port = process.env.port;
 
 app.use("/users", userRouter);
-app.use("/category", categoryRouter);
+app.use("/categories", categoryRouter);
 app.use("/products", productRouter);
 app.use("/cart", cartRouter);
 app.get("/", auth, (req, res) => {

@@ -1,3 +1,4 @@
+// AllRoutes.jsx
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Home from '../Pages/Home';
@@ -19,11 +20,7 @@ const AllRoutes = () => {
       <Route path='/products' element={<Product />} />
       <Route path='/userprofile' element={<UserProfile />} />
       <Route path='/cart' element={<Cart />} />
-      {/* <Route path='/store' element={<Store />}>
-        <Route index element={<StoreCategories />} />
-        <Route path='prod' element={<StoreProducts />} />
-      </Route> */}
-      <Route path='/store' element={<Store />}/>
+      <Route path='/store/*' element={<Store />} />
     </Routes>
   );
 }
