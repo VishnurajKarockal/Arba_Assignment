@@ -93,7 +93,7 @@ userRouter.patch("/update", auth, upload.single("image"), async (req, res) => {
     // Update user details
     user.userName = userName || user.userName;
     user.email = email || user.email;
-    user.password = password ? await bcrypt.hash(password, 5) : user.password;
+    // user.password = password ? await bcrypt.hash(password, 5) : user.password;
 
     // If a new image is uploaded, update it in Cloudinary and in the database
     if (req.file) {

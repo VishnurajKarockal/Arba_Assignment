@@ -15,22 +15,29 @@ const UserProfile = () => {
   };
 
   const handleSaveClick = async () => {
+    const token = localStorage.getItem('token')
     try {
       const formData = new FormData();
-      for (const key in userDetails) {
-        if (userDetails.hasOwnProperty(key)) {
-          formData.append(key, userDetails[key]);
-        }
+      formData.append('userName', userDetails.username);
+      formData.append('email', userDetails.email);
+      if (userDetails.image instanceof File) {
+        formData.append('image', userDetails.image);
       }
 
-      await axios.patch('https://arba-assignment.onrender.com/users/update', formData);
+      const res = await axios.patch('http://localhost:8080/users/update', formData, {
+        headers:{
+          Authorization:`Bearer ${token}`,
+          'Content-Type':'multipart/form-data'
+        }
+      });
 
       for (const key in userDetails) {
         if (userDetails.hasOwnProperty(key)) {
           localStorage.setItem(key, userDetails[key]);
         }
       }
-
+      alert(res.data.msg)
+      localStorage.setItem('avatar',res.data.user.avatar);
       setIsEditing(false);
     } catch (error) {
       console.error('Error updating user profile:', error);
@@ -68,12 +75,15 @@ const UserProfile = () => {
           </FormControl>
           <FormControl mb="4">
             <FormLabel>Avatar</FormLabel>
+            {userDetails.image instanceof File ? (
+              <Image src={URL.createObjectURL(userDetails.image)} alt="Selected Avatar" mb="4" />
+            ) : (
+              <Image src={userDetails.image} alt="User Avatar" mb="4" />
+            )}
             <Input
               name="image"
               type="file"
-              onChange={(e) =>
-                setUserDetails({ ...userDetails, image: e.target.files[0] })
-              }
+              onChange={(e) => setUserDetails({ ...userDetails, image: e.target.files[0] })}
             />
           </FormControl>
           <Button colorScheme="teal" mr="4" onClick={handleSaveClick}>

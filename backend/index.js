@@ -8,6 +8,7 @@ const cors = require("cors");
 const { cartRouter } = require("./routes/cart.routes");
 const app = express();
 app.use(cors());
+
 require("dotenv").config();
 const port = process.env.port;
 

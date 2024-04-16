@@ -33,7 +33,7 @@ const SignUpComp = () => {
       formData.append('password', password);
       formData.append('image', avatar); // Append avatar file to FormData
       
-      const res = await axios.post('https://arba-assignment.onrender.com/users/register', formData, {
+      const res = await axios.post('http://localhost:8080/users/register', formData, {
         headers:{
           Authorization:`Bearer ${token}`,
           'Content-Type':'multipart/form-data'

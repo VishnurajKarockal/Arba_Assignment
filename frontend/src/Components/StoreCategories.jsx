@@ -7,7 +7,7 @@ const StoreCategories = () => {
   const [cats,setCats] = useState([]);
   const handleFetchCats = async() => {
     try {
-      const res = await axios.get(`http://localhost:8080/categories`,{
+      const res = await axios.get(`https://arba-assignment.onrender.com/categories`,{
         headers:{
           Authorization:`Bearer ${token}`
         }
@@ -25,7 +25,7 @@ const StoreCategories = () => {
   
   return (
     <Box >
-      <Grid margin={"auto"} textAlign={"center"} width={"80%"} templateColumns={'repeat(4, 1fr)'}backgroundColor={'#3d85c6'}>
+      <Grid textAlign={"start"} margin={"auto"} width={"80%"} templateColumns={'repeat(4, 1fr)'}backgroundColor={'#3d85c6'}>
         <Box border={"1px solid"} padding={"10px 20px"} >Image</Box>
         <Box border={"1px solid"} padding={"10px 20px"} >Name</Box>
         <Box border={"1px solid"} padding={"10px 20px"} >Slug</Box>
@@ -33,11 +33,11 @@ const StoreCategories = () => {
       </Grid>
       <Box>
         {cats.map((ele,i) => (
-          <Grid key={i} margin={"auto"} textAlign={"center"} width={"80%"} templateColumns={'repeat(4, 1fr)'} >
+          <Grid key={i} margin={"auto"} textAlign={"start"} width={"80%"} templateColumns={'repeat(4, 1fr)'} >
             <Box border={"1px solid"} padding={"10px 20px"} >{ele.image}</Box>
             <Box border={"1px solid"} padding={"10px 20px"} >{ele.name}</Box>
             <Box border={"1px solid"} padding={"10px 20px"} >{ele.slug}</Box>
-            <Box border={"1px solid"} padding={"10px 20px"} ><Link>Edit</Link>|<Link>Delete</Link></Box>
+            <Box border={"1px solid"} padding={"10px 20px"} ><Link>Edit</Link> | <Link>Delete</Link></Box>
           </Grid>
         ))}
       </Box>
