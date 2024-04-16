@@ -1,9 +1,10 @@
 import { Grid, Box, calc } from '@chakra-ui/react';
 import { Image } from '@chakra-ui/react';
 import LoginComp from '../Components/LoginComp';
+import { Navigate } from 'react-router-dom';
 
 const Login = () => {
-  
+  const isLoggedIn = localStorage.getItem('isLoggedIn');
   return (
     <Grid
       templateColumns={{ base: '1fr', md: 'repeat(2, 1fr)' }}
@@ -30,7 +31,7 @@ const Login = () => {
         height="90%"
       >
         <Box margin={"auto"} width={{base:"60px",md:"80px"}} height={{base:"60px",md:"80px"}} borderRadius={"50%"} backgroundColor={'#008083'}></Box>
-        <LoginComp />
+        {isLoggedIn?<Navigate to={"/"}/> : <LoginComp />}
       </Box>
     </Grid>
   );
