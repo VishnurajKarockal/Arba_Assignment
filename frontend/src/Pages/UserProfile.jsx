@@ -23,7 +23,7 @@ const UserProfile = () => {
         }
       }
 
-      await axios.patch('http://localhost:8080/users/update', formData);
+      await axios.patch('https://arba-assignment.onrender.com/users/update', formData);
 
       for (const key in userDetails) {
         if (userDetails.hasOwnProperty(key)) {

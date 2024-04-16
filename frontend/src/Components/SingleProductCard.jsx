@@ -9,7 +9,7 @@ const SingleProductCard = (ele) => {
   const handleAddToCart = async(id) => {
     
     try {
-      const res = await axios.post(`http://localhost:8080/cart/${id}`, {}, {
+      const res = await axios.post(`https://arba-assignment.onrender.com/cart/${id}`, {}, {
         headers: {
           Authorization: `Bearer ${token}`
         }

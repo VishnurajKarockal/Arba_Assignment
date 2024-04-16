@@ -5,9 +5,9 @@ import {
   Input,
   Button,
   Text,
-  Link,
 } from '@chakra-ui/react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const SignUpComp = () => {
   const token = localStorage.getItem('token');
@@ -33,7 +33,7 @@ const SignUpComp = () => {
       formData.append('password', password);
       formData.append('image', avatar); // Append avatar file to FormData
       
-      const res = await axios.post('http://localhost:8080/users/register', formData, {
+      const res = await axios.post('https://arba-assignment.onrender.com/users/register', formData, {
         headers:{
           Authorization:`Bearer ${token}`,
           'Content-Type':'multipart/form-data'
@@ -130,7 +130,7 @@ const SignUpComp = () => {
             Register
           </Button>
         </form>
-        <Text>Already have an account <Link top={"/login"} color={"blue"}>login</Link></Text>
+        <Text>Already have an account <Link to={"/login"} style={{color:"blue"}}>login</Link></Text>
       </div>
     </div>
   );

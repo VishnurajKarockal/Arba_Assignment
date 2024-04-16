@@ -5,19 +5,19 @@ import {
   Input,
   Button,
   Text,
-  Link,
 } from '@chakra-ui/react';
 import axios from 'axios';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 
 const LoginComp = () => {
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
-
+  const navigate = useNavigate()
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:8080/users/login', {
+      const response = await axios.post('https://arba-assignment.onrender.com/users/login', {
         userName,
         password,
       });
@@ -25,11 +25,16 @@ const LoginComp = () => {
       localStorage.setItem('userId',response.data.user._id);
       localStorage.setItem('avatar',response.data.user.avatar);
       console.log(localStorage.getItem('userId')); // Handle successful login response
+      localStorage.setItem('isLoggedIn',"yes");
+      
       alert(response.data.msg)
       setUserName('');
       setPassword('');
+      window.location.reload(); 
+      
     } catch (error) {
-      console.error(error); // Handle login error
+      alert(error.response.data.msg);
+      console.error(error.response); // Handle login error
     }
   };
 
@@ -62,7 +67,7 @@ const LoginComp = () => {
           </Button>
 
         </form>
-        <Text>Don't have an account <Link top={"/signup"} color={"blue"}>signup</Link></Text>
+        <Text>Don't have an account <Link to={"/signup"} style={{color:"blue"}}>signup</Link></Text>
       </div>
     </div>
   );

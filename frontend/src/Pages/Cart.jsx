@@ -9,7 +9,7 @@ const Cart = () => {
     const fetchAllUserCartItems = async() => {
         const token = localStorage.getItem('token')
         try {
-            const res = await axios.get(`http://localhost:8080/cart`, {
+            const res = await axios.get(`https://arba-assignment.onrender.com/cart`, {
                 headers: {
                   Authorization: `Bearer ${token}`
                 }

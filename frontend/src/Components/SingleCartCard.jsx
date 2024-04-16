@@ -9,12 +9,12 @@ const SingleCartCard = (ele) => {
   const handleIncrease = async(id) => {
     
     try {
-      const res = await axios.patch(`http://localhost:8080/cart/${id}`, {action:"increase"}, {
+      const res = await axios.patch(`https://arba-assignment.onrender.com/cart/${id}`, {action:"increase"}, {
         headers: {
           Authorization: `Bearer ${token}`
         }
       });
-
+      window.location.reload(); 
       if(res.data.msg){
         alert(res.data.msg)
       }
@@ -25,12 +25,12 @@ const SingleCartCard = (ele) => {
   const handleDecrease = async(id) => {
     
     try {
-      const res = await axios.patch(`http://localhost:8080/cart/${id}`, {action:"decrease"}, {
+      const res = await axios.patch(`https://arba-assignment.onrender.com/cart/${id}`, {action:"decrease"}, {
         headers: {
           Authorization: `Bearer ${token}`
         }
       });
-
+      window.location.reload(); 
       if(res.data.msg){
         alert(res.data.msg)
       }

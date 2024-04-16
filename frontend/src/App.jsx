@@ -6,10 +6,10 @@ import Signup from './Pages/Signup'
 import AllRoutes from './Routes/AllRoutes'
 
 function App() {
-
+  const isLoggedIn = localStorage.getItem('isLoggedIn')
   return (
     <>
-      <Navbar />
+      {isLoggedIn? <Navbar /> : ""}
       <AllRoutes />
     </>
   )

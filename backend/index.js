@@ -15,9 +15,9 @@ app.use("/users", userRouter);
 app.use("/category", categoryRouter);
 app.use("/products", productRouter);
 app.use("/cart", cartRouter);
-// app.get("/", auth, (req, res) => {
-//   res.send("This is the Home route");
-// });
+app.get("/", auth, (req, res) => {
+  res.send("This is the Home route");
+});
 
 app.listen(port, async () => {
   try {

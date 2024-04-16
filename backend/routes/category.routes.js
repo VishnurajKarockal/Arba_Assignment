@@ -2,9 +2,10 @@ const express = require("express");
 const { categoryModel } = require("../model/category.model");
 const { auth } = require("../middlewares/auth.middleware");
 const multer = require("multer");
+const fs = require("fs");
+const { cloudinary } = require("../config/cloudinary.config");
 const categoryRouter = express.Router();
 categoryRouter.use(express.json());
-const fs = require("fs");
 
 // Multer setup
 const storage = multer.diskStorage({
@@ -21,15 +22,16 @@ const upload = multer({ storage: storage });
 // Create new category
 categoryRouter.post("/", auth, upload.single("image"), async (req, res) => {
   const { name, slug } = req.body;
-  const image = req.file.path;
   try {
+    // Upload image to Cloudinary
+    const result = await cloudinary.uploader.upload(req.file.path);
+
     const category = new categoryModel({
       name,
       slug,
-      image,
+      image: result.secure_url, // Use Cloudinary URL
       owner: req.userID,
     });
-    console.log("ggggggggggggggg", category);
     await category.save();
     res
       .status(201)
@@ -87,12 +89,14 @@ categoryRouter.put(
       category.name = name;
       category.slug = slug;
       if (newImage) {
-        // If a new image is uploaded, update the image field with the new path
-        category.image = newImage.path;
+        // If a new image is uploaded, upload it to Cloudinary and update the image field with the new URL
+        const result = await cloudinary.uploader.upload(newImage.path);
+        category.image = result.secure_url;
 
-        // Delete the previous image file
+        // Delete the previous image file from Cloudinary
         if (image) {
-          fs.unlinkSync(image);
+          const public_id = image.split("/").slice(-1)[0].split(".")[0];
+          await cloudinary.uploader.destroy(public_id);
         }
       }
 
@@ -119,16 +123,10 @@ categoryRouter.delete("/:categoryId", auth, async (req, res) => {
       return res.status(404).json({ message: "Category not found" });
     }
 
-    // Delete the image file associated with the category if it exists
+    // Delete the image file associated with the category if it exists in Cloudinary
     if (category.image) {
-      try {
-        // Check if the file exists before attempting to delete it
-        if (fs.existsSync(category.image)) {
-          fs.unlinkSync(category.image);
-        }
-      } catch (error) {
-        console.error("Error deleting image file:", error);
-      }
+      const public_id = category.image.split("/").slice(-1)[0].split(".")[0];
+      await cloudinary.uploader.destroy(public_id);
     }
 
     // Delete the category from the database

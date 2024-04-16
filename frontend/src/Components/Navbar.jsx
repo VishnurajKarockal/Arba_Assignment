@@ -16,7 +16,7 @@ const Navbar = () => {
   const fetchAllUserCartItems = async() => {
     const token = localStorage.getItem('token')
     try {
-        const res = await axios.get(`http://localhost:8080/cart`, {
+        const res = await axios.get(`https://arba-assignment.onrender.com/cart`, {
             headers: {
               Authorization: `Bearer ${token}`
             }
@@ -28,6 +28,25 @@ const Navbar = () => {
         console.log(error)
     }
 }
+
+const handleLogout = async() => {
+  const token = localStorage.getItem('token');
+  try {
+    const res = await axios.get('https://arba-assignment.onrender.com/users/logout',{
+      headers:{
+        Authorization:`Bearer ${token}`
+      }
+    })
+    if(res.data.msg){
+      alert(res.data.msg);
+      localStorage.setItem('isLoggedIn',"");
+      window.location.reload()
+    }
+  } catch (error) {
+    console.log(error.message)
+  }
+}
+
 useEffect(() => {
     fetchAllUserCartItems()
 }, [])
@@ -68,9 +87,9 @@ useEffect(() => {
             textAlign="center" 
           >
             <List style={{ padding: 0 }} marginTop={"10px"}>
-              <ListItem><Link to="/products">My Store</Link></ListItem>
+              <ListItem><Link to="/store">My Store</Link></ListItem>
               <ListItem><Link to="/userprofile">Profile</Link></ListItem>
-              <ListItem><Link>Logout</Link></ListItem>
+              <ListItem><button onClick={() =>handleLogout()}>Logout</button></ListItem>
             </List>
           </Box>
         )}

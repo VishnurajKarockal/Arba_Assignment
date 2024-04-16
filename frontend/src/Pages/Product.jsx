@@ -15,7 +15,7 @@ const Product = () => {
 
   const fetchUserProducts = async () => {
     try {
-      const res = await axios.get(`http://localhost:8080/products`, {
+      const res = await axios.get(`https://arba-assignment.onrender.com/products`, {
         headers: {
           Authorization: `Bearer ${token}`
         }

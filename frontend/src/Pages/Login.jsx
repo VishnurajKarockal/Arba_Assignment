@@ -3,6 +3,7 @@ import { Image } from '@chakra-ui/react';
 import LoginComp from '../Components/LoginComp';
 
 const Login = () => {
+  
   return (
     <Grid
       templateColumns={{ base: '1fr', md: 'repeat(2, 1fr)' }}
@@ -20,13 +21,13 @@ const Login = () => {
           src='https://img.freepik.com/fotos-premium/padrao-verde-e-branco-com-fundo-de-design-vertical-de-bordas-curvas_7954-28888.jpg?w=360'
           objectFit="cover"
           width="90%"
-          height='calc(100vh - 90px)'
+          height='calc(90vh - 90px)'
         />
       </Box>
       <Box
         padding={"100px 30px"}
         width="90%"
-        height="100%"
+        height="90%"
       >
         <Box margin={"auto"} width={{base:"60px",md:"80px"}} height={{base:"60px",md:"80px"}} borderRadius={"50%"} backgroundColor={'#008083'}></Box>
         <LoginComp />

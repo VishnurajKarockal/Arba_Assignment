@@ -38,7 +38,7 @@ const TermsAndConditions = () => {
         <ModalContent>
           <ModalHeader>Terms and Conditions</ModalHeader>
           <ModalBody>
-            <p>This is the terms and conditions text...</p>
+            <p>By accessing or using our services, you agree to comply with these terms and conditions. You acknowledge that any violation may result in termination of your access to the services. The content provided on our platform is for informational purposes only and should not be considered professional advice. We reserve the right to modify or terminate the services at any time without prior notice. You agree not to engage in any illegal or unauthorized activities while using our services. We are not liable for any damages or losses resulting from your use of the services. Your continued use constitutes acceptance of these terms.</p>
           </ModalBody>
           <ModalFooter>
             <Button colorScheme="red" mr={3} onClick={handleClose}>
